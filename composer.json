@@ -20,6 +20,7 @@
   },
   "require-dev": {
     "orchestra/testbench": "^8.34.0|^9.12.0|^10.1.0|11.x-dev|dev-main|dev-master",
+    "internachi/modular": "*",
     "friendsofphp/php-cs-fixer": "^3.71",
     "phpunit/phpunit": "^10.5|^11.5"
   },
