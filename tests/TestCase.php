@@ -1,8 +1,8 @@
 <?php
 
-namespace Glhd\Modularize\Tests;
+namespace InterNACHI\Modularize\Tests;
 
-use Glhd\Modularize\Support\ModularizeServiceProvider;
+use InterNACHI\Modularize\Support\ModularizeServiceProvider;
 use Illuminate\Container\Container;
 use Orchestra\Testbench\TestCase as Orchestra;
 

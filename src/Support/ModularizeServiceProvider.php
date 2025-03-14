@@ -1,6 +1,6 @@
 <?php
 
-namespace Glhd\Modularize\Support;
+namespace InterNACHI\Modularize\Support;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
@@ -35,7 +35,7 @@ class ModularizeServiceProvider extends ServiceProvider
 	protected function bootBladeComponents() : self
 	{
 		if (version_compare($this->app->version(), '8.0.0', '>=')) {
-			Blade::componentNamespace('Glhd\\Modularize\\Components', 'modularize');
+			Blade::componentNamespace('InterNACHI\\Modularize\\Components', 'modularize');
 		}
 		
 		return $this;

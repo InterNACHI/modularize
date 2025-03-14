@@ -1,25 +1,25 @@
 <div style="float: right;">
-	<a href="https://github.com/glhd/modularize/actions" target="_blank">
+	<a href="https://github.com/internachi/modularize/actions" target="_blank">
 		<img 
-			src="https://github.com/glhd/modularize/workflows/PHPUnit/badge.svg" 
+			src="https://github.com/internachi/modularize/workflows/PHPUnit/badge.svg" 
 			alt="Build Status" 
 		/>
 	</a>
-	<a href="https://codeclimate.com/github/glhd/modularize/test_coverage" target="_blank">
+	<a href="https://codeclimate.com/github/internachi/modularize/test_coverage" target="_blank">
 		<img 
 			src="https://api.codeclimate.com/v1/badges/change-me/test_coverage" 
 			alt="Coverage Status" 
 		/>
 	</a>
-	<a href="https://packagist.org/packages/glhd/modularize" target="_blank">
+	<a href="https://packagist.org/packages/internachi/modularize" target="_blank">
         <img 
-            src="https://poser.pugx.org/glhd/modularize/v/stable" 
+            src="https://poser.pugx.org/internachi/modularize/v/stable" 
             alt="Latest Stable Release" 
         />
 	</a>
 	<a href="./LICENSE" target="_blank">
         <img 
-            src="https://poser.pugx.org/glhd/modularize/license" 
+            src="https://poser.pugx.org/internachi/modularize/license" 
             alt="MIT Licensed" 
         />
     </a>
