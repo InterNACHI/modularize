@@ -10,17 +10,18 @@ on:
 
 jobs:
   php-tests:
-    runs-on: ubuntu-latest
-
+    
     strategy:
       matrix:
-        php: [ 8.2, 8.3, 8.4 ]
-        laravel: [ 11.*, 12.* ]
         dependency-version: [ stable, lowest ]
+        os: [ ubuntu, windows ]
+        laravel: [ 11.*, 12.* ]
+        php: [ 8.3, 8.4 ]
           
+    runs-on: "${{ matrix.os }}-latest"
     timeout-minutes: 10
 
-    name: "${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
+    name: "${{ matrix.os }}: ${{ matrix.php }} / ${{ matrix.laravel }} (${{ matrix.dependency-version }})"
 
     steps:
       - name: Checkout code
