@@ -2,28 +2,17 @@
 
 namespace InterNACHI\Modularize;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use InterNACHI\Modular\Support\ModuleConfig;
 use InterNACHI\Modular\Support\ModuleRegistry;
 use Symfony\Component\Console\Exception\InvalidOptionException;
 use Symfony\Component\Console\Input\InputOption;
 
-/** @mixin \Illuminate\Console\Command */
 trait Modularize
 {
-	/**
-	 * Get the module configuration for the requested module
-	 *
-	 * @return \InterNACHI\Modular\Support\ModuleConfig|null
-	 */
 	protected function module(): ?ModuleConfig
 	{
 		if ($name = $this->option('module')) {
-			try {
-				$registry = $this->getLaravel()->make(ModuleRegistry::class);
-			} catch (BindingResolutionException) {
-				throw new InvalidOptionException('You must have "internachi/modular" installed to use the --module option.');
-			}
+			$registry = $this->getLaravel()->make(ModuleRegistry::class);
 			
 			if ($module = $registry->module($name)) {
 				return $module;
@@ -35,9 +24,6 @@ trait Modularize
 		return null;
 	}
 	
-	/**
-	 * Register the --module option during command configuration
-	 */
 	protected function configure()
 	{
 		parent::configure();
