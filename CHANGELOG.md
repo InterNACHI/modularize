@@ -5,6 +5,8 @@ format. This project adheres to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-01-31
+
 ## [0.0.1]
 
 # Keep a Changelog Syntax
@@ -16,5 +18,6 @@ format. This project adheres to [Semantic Versioning](https://semver.org/spec/v2
 - `Fixed` for any bug fixes. 
 - `Security` in case of vulnerabilities.
 
-[Unreleased]: https://github.com/internachi/modularize/compare/0.0.1...HEAD
+[unreleased]: https://github.com/InterNACHI/modularize/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/InterNACHI/modularize/compare/0.0.1...1.0.0
 [0.0.1]: https://github.com/internachi/modularize/compare/0.0.1...0.0.1
