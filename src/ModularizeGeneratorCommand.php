@@ -4,47 +4,40 @@ namespace InterNACHI\Modularize;
 
 use Illuminate\Support\Str;
 
-/**
- * @mixin \Illuminate\Console\Command
- * @mixin \Illuminate\Console\GeneratorCommand
- */
+/** @mixin \Illuminate\Console\GeneratorCommand */
 trait ModularizeGeneratorCommand
 {
 	use Modularize;
 	
-	/**
-	 * Get the default namespace for the class, injecting the module namespace when appropriate.
-	 * 
-	 * @param string $rootNamespace
-	 * @return string
-	 */
+	public function call($command, array $arguments = [])
+	{
+		if ($module = $this->option('module')) {
+			$arguments['--module'] = $module;
+		}
+		
+		return parent::call($command, $arguments);
+	}
+	
 	protected function getDefaultNamespace($rootNamespace)
 	{
 		$namespace = parent::getDefaultNamespace($rootNamespace);
+		$module = $this->module();
 		
-		if ($module = $this->module()) {
-			if (! str_contains($rootNamespace, $module->namespaces->first())) {
-				$find = rtrim($rootNamespace, '\\');
-				$replace = rtrim($module->namespaces->first(), '\\');
-				$namespace = str_replace($find, $replace, $namespace);
-			}
+		if ($module && ! str_contains($rootNamespace, $module->namespaces->first())) {
+			$find = rtrim($rootNamespace, '\\');
+			$replace = rtrim($module->namespaces->first(), '\\');
+			$namespace = str_replace($find, $replace, $namespace);
 		}
 		
 		return $namespace;
 	}
 	
-	/**
-	 * Only format class according to root namespace when outside a module.
-	 *
-	 * @param string $name
-	 * @return string
-	 */
 	protected function qualifyClass($name)
 	{
-		$name = str_replace('/', '\\', ltrim($name, '\\/'));
+		$name = ltrim($name, '\\/');
 		
 		if ($module = $this->module()) {
-			if (str_starts_with($name, $module->namespaces->first())) {
+			if (Str::startsWith($name, $module->namespaces->first())) {
 				return $name;
 			}
 		}
@@ -52,18 +45,16 @@ trait ModularizeGeneratorCommand
 		return parent::qualifyClass($name);
 	}
 	
-	/**
-	 * Qualify the given model class base name.
-	 *
-	 * @param string $model
-	 * @return string
-	 */
 	protected function qualifyModel(string $model)
 	{
 		if ($module = $this->module()) {
 			$model = str_replace('/', '\\', ltrim($model, '\\/'));
 			
-			if (str_starts_with($model, $module->namespace())) {
+			if (
+				Str::startsWith($model, $this->rootNamespace())
+				|| Str::startsWith($model, $module->namespace())
+				|| class_exists(Str::start($model, '\\'))
+			) {
 				return $model;
 			}
 			
@@ -73,12 +64,6 @@ trait ModularizeGeneratorCommand
 		return parent::qualifyModel($model);
 	}
 	
-	/**
-	 * Get the destination class path.
-	 *
-	 * @param string $name
-	 * @return string
-	 */
 	protected function getPath($name)
 	{
 		if ($module = $this->module()) {
@@ -96,7 +81,7 @@ trait ModularizeGeneratorCommand
 			];
 			
 			// Normalize all our paths for compatibility's sake
-			$normalize = static fn($path) => rtrim($path, '/').'/';
+			$normalize = fn($path) => rtrim($path, '/').'/';
 			
 			$find = array_map($normalize, array_keys($replacements));
 			$replace = array_map($normalize, array_values($replacements));
@@ -106,21 +91,5 @@ trait ModularizeGeneratorCommand
 		}
 		
 		return $path;
-	}
-	
-	/**
-	 * Call another console command, passing the module flag if it's set.
-	 *
-	 * @param \Symfony\Component\Console\Command\Command|string $command
-	 * @param array $arguments
-	 * @return int
-	 */
-	public function call($command, array $arguments = [])
-	{
-		if ($module = $this->option('module')) {
-			$arguments['--module'] = $module;
-		}
-		
-		return $this->runCommand($command, $arguments, $this->output);
 	}
 }
