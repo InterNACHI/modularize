@@ -7,7 +7,6 @@ use Illuminate\Console\GeneratorCommand;
 use Illuminate\Filesystem\Filesystem;
 use InterNACHI\Modular\Support\ModuleConfig;
 use InterNACHI\Modular\Support\ModuleRegistry;
-use InterNACHI\Modularize\Modularize;
 use InterNACHI\Modularize\ModularizeGeneratorCommand;
 use Mockery\MockInterface;
 
